@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "codigo": "PROT-001",
+    "nombre": "Prostar 5 lb",
+    "categoria": "Proteínas & Aminoácidos",
+    "precio": 90000,
+    "stock": 12,
+    "stockCritico": 5,
+    "imagen": "/img/proteina.jpg",
+    "descripcion": "Proteína de suero de alta calidad para la recuperación muscular."
+  },
+  {
+    "id": 2,
+    "codigo": "CREAT-002",
+    "nombre": "Creatina 300 g",
+    "categoria": "Proteínas & Aminoácidos",
+    "precio": 50000,
+    "stock": 4,
+    "stockCritico": 5,
+    "imagen": "/img/creatina.jpg",
+    "descripcion": "Creatina monohidratada micronizada, sin sabor."
+  },
+  {
+    "id": 3,
+    "codigo": "EQUI-003",
+    "nombre": "Bandas Elásticas de Resistencia x5",
+    "categoria": "Equipamiento",
+    "precio": 12990,
+    "stock": 45,
+    "stockCritico": 10,
+    "imagen": "/img/bandas.jpg",
+    "descripcion": "Set de 5 bandas con distintos niveles de resistencia."
+  },
+  {
+    "id": 4,
+    "codigo": "EQUI-004",
+    "nombre": "Mancuernas Ajustables 10kg",
+    "categoria": "Equipamiento",
+    "precio": 89990,
+    "stock": 12,
+    "stockCritico": 3,
+    "imagen": "/img/mancuernas.jpg",
+    "descripcion": "Par de mancuernas ajustables para entrenar en casa."
+  },
+  {
+    "id": 5,
+    "codigo": "ROPA-005",
+    "nombre": "Polera Deportiva DryFit",
+    "categoria": "Ropa Deportiva",
+    "precio": 19990,
+    "stock": 30,
+    "stockCritico": 5,
+    "imagen": "/img/polera-deportiva.jpg",
+    "descripcion": "Polera de secado rápido, ideal para entrenamientos intensos."
+  },
+  {
+    "id": 6,
+    "codigo": "VITA-006",
+    "nombre": "Vitamina C + Zinc 60 cápsulas",
+    "categoria": "Vitaminas",
+    "precio": 14990,
+    "stock": 50,
+    "stockCritico": 10,
+    "imagen": "/img/vitamina-c.jpg",
+    "descripcion": "Refuerza el sistema inmune durante la temporada de entrenamiento."
+  }
+]
