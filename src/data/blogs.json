@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "titulo": "¿Cuándo tomar creatina? Mitos y realidades",
+    "resumen": "Aclaramos las dudas más comunes sobre el momento ideal para consumir creatina y separamos los mitos de la evidencia real.",
+    "imagen": "/img/creatina.jpg",
+    "video": "",
+    "parrafos": [
+      "Uno de los mitos más repetidos en el gimnasio es que la creatina solo sirve si se toma inmediatamente después de entrenar, o que hay que mezclarla con jugo o algo azucarado para que \"se absorba mejor\". La verdad es más simple de lo que parece.",
+      "Lo que realmente importa con la creatina es la constancia diaria, no el minuto exacto en que se toma. El cuerpo va saturando los músculos con el uso diario, así que tomarla en la mañana, en la tarde o después de entrenar no genera una diferencia real en los resultados a largo plazo.",
+      "Existe también la llamada \"fase de carga\", que consiste en tomar una dosis más alta los primeros días para saturar más rápido los músculos. Es opcional: se puede empezar directo con la dosis normal de mantención y los resultados llegan igual, solo un poco más lento.",
+      "La recomendación práctica es simple: elige un momento del día que puedas mantener todos los días, tómala con agua, y no te preocupes por mezclarla con algo dulce ni por hacerlo justo después de entrenar."
+    ]
+  },
+  {
+    "id": 2,
+    "titulo": "Guía de ejercicios para armar tu rutina en casa",
+    "resumen": "Una guía simple para armar una rutina de entrenamiento completa sin salir de casa.",
+    "imagen": "",
+    "video": "https://www.youtube-nocookie.com/embed/y9-_6xBgJbE",
+    "parrafos": [
+      "Armar una rutina de ejercicios en casa no tiene que ser complicado ni requiere comprar equipo caro. Lo más importante es la constancia y elegir ejercicios que trabajen los principales grupos musculares.",
+      "Una rutina básica puede dividirse en 3 partes: calentamiento (5 minutos de movimiento articular y trote suave en el lugar), ejercicios principales (sentadillas, flexiones de brazo, plancha abdominal y zancadas, en series de 3 x 12 repeticiones), y estiramiento final para relajar los músculos trabajados.",
+      "Se recomienda entrenar entre 3 y 4 veces por semana, dejando un día de descanso entre sesiones para que el cuerpo se recupere. Con el tiempo se puede ir aumentando la cantidad de repeticiones o agregando nuevos ejercicios a la rutina."
+    ]
+  }
+]
