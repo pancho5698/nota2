@@ -190,3 +190,13 @@ p {
 .bloque-nosotros h2 {
   font-size: 1.4rem;
 }
+
+/* Blogs */
+.tarjeta-blog {
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-blog h2 {
+  font-size: 1.4rem;
+}
