@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Cabecera from './components/Cabecera';
 import Inicio from './components/Inicio';
+import Nosotros from './components/Nosotros';
 import PiePagina from './components/PiePagina';
 import productosIniciales from './data/productos.json';
 import { guardarDatos, leerDatos } from './utils/almacenamiento';
@@ -29,6 +30,7 @@ export default function App() {
             path="/"
             element={<Inicio productos={productos} onAgregar={agregarAlCarrito} />}
           />
+          <Route path="/nosotros" element={<Nosotros />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
