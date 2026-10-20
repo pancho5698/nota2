@@ -5,6 +5,7 @@ import Inicio from './components/Inicio';
 import Nosotros from './components/Nosotros';
 import Blogs from './components/Blogs';
 import DetalleBlog from './components/DetalleBlog';
+import Contacto from './components/Contacto';
 import PiePagina from './components/PiePagina';
 import productosIniciales from './data/productos.json';
 import { guardarDatos, leerDatos } from './utils/almacenamiento';
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<DetalleBlog />} />
+          <Route path="/contacto" element={<Contacto />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

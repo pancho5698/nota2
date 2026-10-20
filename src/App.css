@@ -213,3 +213,14 @@ p {
   border-radius: 6px;
   margin-bottom: 1.5rem;
 }
+
+/* Contacto */
+.formulario-contacto {
+  max-width: 640px;
+}
+
+.form-control {
+  background-color: #1e2226;
+  border-color: #2c3136;
+  color: #f2f1ed;
+}
