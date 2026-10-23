@@ -20,6 +20,13 @@ export function validarCorreo(correo) {
   return '';
 }
 
+export function validarContrasena(contrasena) {
+  if (contrasena === '') return 'La contraseña es obligatoria.';
+  if (contrasena.length < 6) return 'La contraseña debe tener al menos 6 caracteres.';
+  if (contrasena.length > 20) return 'La contraseña no puede superar los 20 caracteres.';
+  return '';
+}
+
 export function validarContacto({ nombre, correo, comentario }) {
   const errores = {};
 
@@ -37,6 +44,39 @@ export function validarContacto({ nombre, correo, comentario }) {
   } else if (comentario.length > 500) {
     errores.comentario = 'El comentario no puede superar los 500 caracteres.';
   }
+
+  return errores;
+}
+
+export function validarRegistro({ nombre, correo, contrasena, confirmacion }) {
+  const errores = {};
+
+  if (nombre.trim() === '') {
+    errores.nombre = 'El nombre es obligatorio.';
+  } else if (nombre.length > 100) {
+    errores.nombre = 'El nombre no puede superar los 100 caracteres.';
+  }
+
+  const errorCorreo = validarCorreo(correo);
+  if (errorCorreo) errores.correo = errorCorreo;
+
+  const errorContrasena = validarContrasena(contrasena);
+  if (errorContrasena) errores.contrasena = errorContrasena;
+
+  if (confirmacion === '') {
+    errores.confirmacion = 'Confirma tu contraseña.';
+  } else if (confirmacion !== contrasena) {
+    errores.confirmacion = 'Las contraseñas no coinciden.';
+  }
+
+  return errores;
+}
+
+export function validarLogin({ correo, contrasena }) {
+  const errores = {};
+
+  if (correo.trim() === '') errores.correo = 'El correo es obligatorio.';
+  if (contrasena === '') errores.contrasena = 'La contraseña es obligatoria.';
 
   return errores;
 }

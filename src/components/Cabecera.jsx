@@ -10,7 +10,7 @@ const enlaces = [
   { ruta: '/contacto', texto: 'Contacto' },
 ];
 
-export default function Cabecera({ cantidadCarrito = 0 }) {
+export default function Cabecera({ cantidadCarrito = 0, usuario = null, onCerrarSesion }) {
   const [abierto, setAbierto] = useState(false);
 
   return (
@@ -52,16 +52,38 @@ export default function Cabecera({ cantidadCarrito = 0 }) {
             </ul>
 
             <div className="acciones-cabecera">
-              <a href="/admin.html" className="enlace-cuenta">
-                Iniciar Sesión
-              </a>
-              <Link
-                to="/registro"
-                className="enlace-cuenta"
-                onClick={() => setAbierto(false)}
-              >
-                Registrarse
-              </Link>
+              {usuario ? (
+                <>
+                  <span className="enlace-cuenta">Hola, {usuario.nombre}</span>
+                  <button
+                    type="button"
+                    className="enlace-cuenta btn btn-link p-0 border-0"
+                    onClick={() => {
+                      onCerrarSesion();
+                      setAbierto(false);
+                    }}
+                  >
+                    Cerrar sesión
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="enlace-cuenta"
+                    onClick={() => setAbierto(false)}
+                  >
+                    Iniciar Sesión
+                  </Link>
+                  <Link
+                    to="/registro"
+                    className="enlace-cuenta"
+                    onClick={() => setAbierto(false)}
+                  >
+                    Registrarse
+                  </Link>
+                </>
+              )}
               <Link
                 to="/carrito"
                 className="enlace-carrito"
