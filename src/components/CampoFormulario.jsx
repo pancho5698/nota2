@@ -1,4 +1,3 @@
-// Etiqueta + input (o textarea) + mensaje de error con las clases de Bootstrap.
 export default function CampoFormulario({
   id,
   etiqueta,

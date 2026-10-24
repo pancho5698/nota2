@@ -1,6 +1,3 @@
-// Cada función recibe los datos del formulario y devuelve un objeto con los errores.
-// Si el objeto queda vacío, el formulario es válido.
-
 const FORMATO_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DOMINIOS_PERMITIDOS = /@(duocuc\.cl|profesor\.duocuc\.cl|gmail\.com|outlook\.com)$/;
 

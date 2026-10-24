@@ -47,7 +47,7 @@ export default function App() {
     setCarrito([]);
   }
 
-  // Devuelve true si las credenciales son correctas.
+
   function iniciarSesion(datos) {
     const usuario = autenticarUsuario(datos);
     if (!usuario) return false;
