@@ -1,0 +1,91 @@
+.menu-admin .nav-link {
+  color: #9aa0a6;
+}
+
+.menu-admin .nav-link.active {
+  background: #ff5a36;
+  color: #14100e;
+}
+
+.alerta-stock {
+  background: rgba(229, 72, 77, 0.15);
+  border: 1px solid #e5484d;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.tabla-admin {
+  --bs-table-bg: transparent;
+  font-size: 0.95rem;
+}
+
+.tabla-admin th {
+  background: #252a2f;
+  white-space: nowrap;
+}
+
+.fila-critica td {
+  background: rgba(229, 72, 77, 0.1);
+}
+
+.estado-critico {
+  color: #e5484d;
+  font-weight: 700;
+}
+
+.estado-ok {
+  color: #46a758;
+  font-weight: 700;
+}
+
+.tarjeta-metrica {
+  height: 100%;
+  background: #1e2226;
+  border: 1px solid #2c3136;
+  border-left: 4px solid #ff5a36;
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.tarjeta-metrica.alerta {
+  border-left-color: #e5484d;
+}
+
+.tarjeta-metrica h2 {
+  font-size: 1rem;
+  color: #9aa0a6;
+}
+
+.tarjeta-metrica p {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #f2f1ed;
+  margin: 0;
+}
+
+.boton-accion {
+  background: transparent;
+  border-radius: 4px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+}
+
+.boton-editar {
+  color: #ffa17a;
+  border: 1px solid rgba(255, 90, 54, 0.4);
+}
+
+.boton-eliminar {
+  color: #ff7b72;
+  border: 1px solid rgba(229, 72, 77, 0.4);
+}
+
+.boton-accion:hover {
+  background: rgba(255, 90, 54, 0.15);
+}
+
+.modal-content {
+  background: #1e2226;
+  border: 1px solid #2c3136;
+}

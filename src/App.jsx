@@ -12,6 +12,7 @@ import Carrito from './components/Carrito';
 import Login from './components/Login';
 import Registro from './components/Registro';
 import PiePagina from './components/PiePagina';
+import Admin from './admin/Admin';
 import productosIniciales from './data/productos.json';
 import { guardarDatos, leerDatos } from './utils/almacenamiento';
 import { agregarItem, cambiarCantidad, contarItems, quitarItem } from './utils/carrito';
@@ -19,9 +20,13 @@ import { autenticarUsuario } from './utils/usuarios';
 import './App.css';
 
 export default function App() {
-  const [productos] = useState(() => leerDatos('productos', productosIniciales));
+  const [productos, setProductos] = useState(() => leerDatos('productos', productosIniciales));
   const [carrito, setCarrito] = useState(() => leerDatos('carrito', []));
   const [sesion, setSesion] = useState(() => leerDatos('sesion', null));
+
+  useEffect(() => {
+    guardarDatos('productos', productos);
+  }, [productos]);
 
   useEffect(() => {
     guardarDatos('carrito', carrito);
@@ -47,6 +52,17 @@ export default function App() {
     setCarrito([]);
   }
 
+  function guardarProducto(producto) {
+    setProductos((lista) =>
+      lista.some((p) => p.id === producto.id)
+        ? lista.map((p) => (p.id === producto.id ? producto : p))
+        : [...lista, producto],
+    );
+  }
+
+  function eliminarProducto(id) {
+    setProductos((lista) => lista.filter((p) => p.id !== id));
+  }
 
   function iniciarSesion(datos) {
     const usuario = autenticarUsuario(datos);
@@ -105,6 +121,17 @@ export default function App() {
           />
           <Route path="/login" element={<Login onIniciar={iniciarSesion} />} />
           <Route path="/registro" element={<Registro />} />
+          <Route
+            path="/admin"
+            element={
+              <Admin
+                usuario={sesion}
+                productos={productos}
+                onGuardarProducto={guardarProducto}
+                onEliminarProducto={eliminarProducto}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

@@ -55,6 +55,11 @@ export default function Cabecera({ cantidadCarrito = 0, usuario = null, onCerrar
               {usuario ? (
                 <>
                   <span className="enlace-cuenta">Hola, {usuario.nombre}</span>
+                  {usuario.rol === 'admin' && (
+                    <Link to="/admin" className="enlace-cuenta" onClick={() => setAbierto(false)}>
+                      Admin
+                    </Link>
+                  )}
                   <button
                     type="button"
                     className="enlace-cuenta btn btn-link p-0 border-0"
