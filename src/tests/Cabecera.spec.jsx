@@ -38,6 +38,6 @@ describe('Cabecera', () => {
 
   it('el enlace de iniciar sesion lleva al admin', () => {
     renderCabecera();
-    expect(screen.getByText('Iniciar Sesión').getAttribute('href')).toBe('/admin.html');
+    expect(screen.getByText('Iniciar Sesión').getAttribute('href')).toBe('/login');
   });
 });
