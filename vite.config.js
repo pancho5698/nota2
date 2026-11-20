@@ -13,4 +13,9 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    // En Railway el sitio se sirve con "vite preview", que usa el mismo proxy de server.
+    // Se permite el dominio que Railway asigna al front.
+    allowedHosts: ['.up.railway.app'],
+  },
 })
