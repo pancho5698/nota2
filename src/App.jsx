@@ -13,20 +13,17 @@ import Login from './components/Login';
 import Registro from './components/Registro';
 import PiePagina from './components/PiePagina';
 import Admin from './admin/Admin';
-import productosIniciales from './data/productos.json';
+import useProductos from './hooks/useProductos';
 import { guardarDatos, leerDatos } from './utils/almacenamiento';
 import { agregarItem, cambiarCantidad, contarItems, quitarItem } from './utils/carrito';
 import { autenticarUsuario } from './utils/usuarios';
 import './App.css';
 
 export default function App() {
-  const [productos, setProductos] = useState(() => leerDatos('productos', productosIniciales));
+  // Los productos ahora vienen del backend (MongoDB Atlas), no del JSON local.
+  const { productos, setProductos, cargando, error } = useProductos();
   const [carrito, setCarrito] = useState(() => leerDatos('carrito', []));
   const [sesion, setSesion] = useState(() => leerDatos('sesion', null));
-
-  useEffect(() => {
-    guardarDatos('productos', productos);
-  }, [productos]);
 
   useEffect(() => {
     guardarDatos('carrito', carrito);
@@ -83,6 +80,16 @@ export default function App() {
         onCerrarSesion={cerrarSesion}
       />
       <main id="contenido" className="contenido">
+        {cargando && (
+          <p className="container py-3" role="status">
+            Cargando productos…
+          </p>
+        )}
+        {error && (
+          <p className="container py-3 text-danger" role="alert">
+            No se pudo cargar el catálogo. Intenta más tarde.
+          </p>
+        )}
         <Routes>
           <Route
             path="/"
