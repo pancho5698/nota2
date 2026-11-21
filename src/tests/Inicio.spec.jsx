@@ -1,7 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Inicio from '../components/Inicio';
-import productos from '../data/productos.json';
+// Datos de prueba: el test no depende del backend ni de un archivo externo.
+const productos = [
+  { id: 1, codigo: 'PROT-001', nombre: 'Prostar 5 lb', categoria: 'Proteínas & Aminoácidos', precio: 90000, precioOferta: 79990, stock: 12, stockCritico: 5, imagen: '/img/proteina.jpg' },
+  { id: 2, codigo: 'CREAT-002', nombre: 'Creatina 300 g', categoria: 'Proteínas & Aminoácidos', precio: 50000, stock: 4, stockCritico: 5, imagen: '/img/creatina.jpg' },
+  { id: 3, codigo: 'EQUI-003', nombre: 'Bandas Elásticas', categoria: 'Equipamiento', precio: 12990, stock: 45, stockCritico: 5, imagen: '/img/bandas.jpg' },
+  { id: 4, codigo: 'EQUI-004', nombre: 'Mancuernas', categoria: 'Equipamiento', precio: 30000, stock: 8, stockCritico: 5, imagen: '/img/mancuernas.jpg' },
+  { id: 5, codigo: 'VIT-005', nombre: 'Vitamina C', categoria: 'Vitaminas', precio: 8990, stock: 20, stockCritico: 5, imagen: '/img/vitamina-c.jpg' },
+];
 
 function renderInicio(onAgregar = () => {}) {
   render(
