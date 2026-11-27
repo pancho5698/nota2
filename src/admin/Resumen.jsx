@@ -1,13 +1,12 @@
 import { esStockCritico } from '../utils/formato';
 
-export default function Resumen({ productos, usuarios }) {
+export default function Resumen({ productos, usuarios, boletas = [] }) {
   const criticos = productos.filter(esStockCritico);
-  const enOferta = productos.filter((p) => typeof p.precioOferta === 'number').length;
 
   const metricas = [
     { id: 'total-productos', titulo: 'Productos', valor: productos.length },
     { id: 'stock-critico', titulo: 'Stock crítico', valor: criticos.length, alerta: true },
-    { id: 'en-oferta', titulo: 'En oferta', valor: enOferta },
+    { id: 'total-compras', titulo: 'Compras', valor: boletas.length },
     { id: 'total-usuarios', titulo: 'Usuarios registrados', valor: usuarios.length },
   ];
 

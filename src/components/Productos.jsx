@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ListaProductos from './ListaProductos';
 
-export default function Productos({ productos, onAgregar }) {
+export default function Productos({ productos, cargando = false, onAgregar }) {
   const [categoria, setCategoria] = useState('Todas');
   const [busqueda, setBusqueda] = useState('');
   const [soloOfertas, setSoloOfertas] = useState(false);
@@ -71,10 +71,16 @@ export default function Productos({ productos, onAgregar }) {
           </div>
         </div>
 
-        <p className="small">
-          {filtrados.length} {filtrados.length === 1 ? 'producto' : 'productos'}
-        </p>
-        <ListaProductos productos={filtrados} onAgregar={onAgregar} />
+        {cargando ? (
+          <p className="small">Cargando productos...</p>
+        ) : (
+          <>
+            <p className="small">
+              {filtrados.length} {filtrados.length === 1 ? 'producto' : 'productos'}
+            </p>
+            <ListaProductos productos={filtrados} onAgregar={onAgregar} />
+          </>
+        )}
       </div>
     </section>
   );

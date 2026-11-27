@@ -34,6 +34,11 @@
   font-weight: 700;
 }
 
+.estado-vendedor {
+  color: #f5b942;
+  font-weight: 700;
+}
+
 .estado-ok {
   color: #46a758;
   font-weight: 700;
@@ -69,6 +74,11 @@
   border-radius: 4px;
   padding: 0.3rem 0.65rem;
   font-size: 0.8rem;
+}
+
+.boton-ver {
+  color: #8cc8ff;
+  border: 1px solid rgba(140, 200, 255, 0.4);
 }
 
 .boton-editar {

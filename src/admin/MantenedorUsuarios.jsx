@@ -1,56 +1,100 @@
 import { useState } from 'react';
 import CampoFormulario from '../components/CampoFormulario';
+import { normalizarRol } from '../utils/formato';
 import { hayErrores, validarUsuario } from '../utils/validaciones';
 
-const formularioVacio = { nombre: '', correo: '', contrasena: '', rol: 'cliente' };
+const formularioVacio = { nombre: '', correo: '', contrasena: '', rol: 'CLIENTE' };
 
-export default function MantenedorUsuarios({ usuarios, onGuardar, onEliminar }) {
+const etiquetasRol = {
+  ADMIN: 'Administrador',
+  VENDEDOR: 'Vendedor',
+  CLIENTE: 'Cliente',
+};
+
+const clasesRol = {
+  ADMIN: 'estado-critico',
+  VENDEDOR: 'estado-vendedor',
+  CLIENTE: 'estado-ok',
+};
+
+export default function MantenedorUsuarios({
+  usuarios,
+  cargando = false,
+  onGuardar,
+  onEliminar,
+}) {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [datos, setDatos] = useState(formularioVacio);
   const [idEditando, setIdEditando] = useState(null);
   const [errores, setErrores] = useState({});
+  const [errorApi, setErrorApi] = useState('');
+  const [guardando, setGuardando] = useState(false);
 
   function abrirModal(usuario) {
     setDatos(
       usuario
-        ? { nombre: usuario.nombre, correo: usuario.correo, contrasena: '', rol: usuario.rol ?? 'cliente' }
+        ? {
+            nombre: usuario.nombre,
+            correo: usuario.correo,
+            contrasena: '',
+            rol: normalizarRol(usuario.rol) || 'CLIENTE',
+          }
         : formularioVacio,
     );
     setIdEditando(usuario ? usuario.id : null);
     setErrores({});
+    setErrorApi('');
     setMostrarModal(true);
   }
 
   function cambiar(e) {
     setDatos({ ...datos, [e.target.name]: e.target.value });
+    setErrorApi('');
   }
 
-  function eliminar(usuario) {
-    if (window.confirm(`¿Eliminar a "${usuario.nombre}"?`)) {
-      onEliminar(usuario.id);
+  async function eliminar(usuario) {
+    if (!window.confirm(`¿Eliminar a "${usuario.nombre}"?`)) return;
+    setErrorApi('');
+    try {
+      await onEliminar(usuario.id);
+    } catch (error) {
+      setErrorApi(error.message || 'No se pudo eliminar el usuario.');
     }
   }
 
-  function guardar(e) {
+  async function guardar(e) {
     e.preventDefault();
     const nuevosErrores = validarUsuario(datos, idEditando === null);
     const correo = datos.correo.trim().toLowerCase();
 
-    if (!nuevosErrores.correo && usuarios.some((u) => u.correo === correo && u.id !== idEditando)) {
+    if (
+      !nuevosErrores.correo &&
+      usuarios.some((u) => u.correo.toLowerCase() === correo && u.id !== idEditando)
+    ) {
       nuevosErrores.correo = 'Ya existe una cuenta con ese correo.';
     }
     setErrores(nuevosErrores);
     if (hayErrores(nuevosErrores)) return;
 
-    const original = usuarios.find((u) => u.id === idEditando);
-    onGuardar({
-      id: idEditando ?? Date.now(),
+    const payload = {
       nombre: datos.nombre.trim(),
       correo,
-      contrasena: datos.contrasena || original.contrasena,
-      rol: datos.rol,
-    });
-    setMostrarModal(false);
+      rol: normalizarRol(datos.rol) || 'CLIENTE',
+    };
+    if (datos.contrasena) {
+      payload.contrasena = datos.contrasena;
+    }
+
+    setGuardando(true);
+    setErrorApi('');
+    try {
+      await onGuardar(payload, idEditando);
+      setMostrarModal(false);
+    } catch (error) {
+      setErrorApi(error.message || 'No se pudo guardar el usuario.');
+    } finally {
+      setGuardando(false);
+    }
   }
 
   return (
@@ -66,6 +110,12 @@ export default function MantenedorUsuarios({ usuarios, onGuardar, onEliminar }) 
         </button>
       </div>
 
+      {!mostrarModal && errorApi && (
+        <div className="alert alert-danger" role="alert">
+          {errorApi}
+        </div>
+      )}
+
       <div className="tarjeta">
         <div className="table-responsive">
           <table className="table tabla-admin align-middle mb-0">
@@ -78,40 +128,49 @@ export default function MantenedorUsuarios({ usuarios, onGuardar, onEliminar }) 
               </tr>
             </thead>
             <tbody>
-              {usuarios.length === 0 ? (
+              {cargando ? (
+                <tr>
+                  <td colSpan="4" className="text-center py-4">
+                    Cargando usuarios...
+                  </td>
+                </tr>
+              ) : usuarios.length === 0 ? (
                 <tr>
                   <td colSpan="4" className="text-center py-4">
                     No hay usuarios registrados.
                   </td>
                 </tr>
               ) : (
-                usuarios.map((u) => (
-                  <tr key={u.id}>
-                    <td>{u.nombre}</td>
-                    <td>{u.correo}</td>
-                    <td>
-                      <span className={u.rol === 'admin' ? 'estado-critico' : 'estado-ok'}>
-                        {u.rol === 'admin' ? 'Administrador' : 'Cliente'}
-                      </span>
-                    </td>
-                    <td className="text-center text-nowrap">
-                      <button
-                        type="button"
-                        className="boton-accion boton-editar me-2"
-                        onClick={() => abrirModal(u)}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        type="button"
-                        className="boton-accion boton-eliminar"
-                        onClick={() => eliminar(u)}
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                usuarios.map((u) => {
+                  const rol = normalizarRol(u.rol) || 'CLIENTE';
+                  return (
+                    <tr key={u.id}>
+                      <td>{u.nombre}</td>
+                      <td>{u.correo}</td>
+                      <td>
+                        <span className={clasesRol[rol] || 'estado-ok'}>
+                          {etiquetasRol[rol] || rol}
+                        </span>
+                      </td>
+                      <td className="text-center text-nowrap">
+                        <button
+                          type="button"
+                          className="boton-accion boton-editar me-2"
+                          onClick={() => abrirModal(u)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          type="button"
+                          className="boton-accion boton-eliminar"
+                          onClick={() => eliminar(u)}
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -131,10 +190,16 @@ export default function MantenedorUsuarios({ usuarios, onGuardar, onEliminar }) 
                     type="button"
                     className="btn-close"
                     aria-label="Cerrar"
+                    disabled={guardando}
                     onClick={() => setMostrarModal(false)}
                   />
                 </div>
                 <div className="modal-body">
+                  {errorApi && (
+                    <div className="alert alert-danger" role="alert">
+                      {errorApi}
+                    </div>
+                  )}
                   <CampoFormulario
                     id="nombre"
                     etiqueta="Nombre"
@@ -168,20 +233,22 @@ export default function MantenedorUsuarios({ usuarios, onGuardar, onEliminar }) 
                     value={datos.rol}
                     onChange={cambiar}
                   >
-                    <option value="cliente">Cliente</option>
-                    <option value="admin">Administrador</option>
+                    <option value="CLIENTE">Cliente</option>
+                    <option value="VENDEDOR">Vendedor</option>
+                    <option value="ADMIN">Administrador</option>
                   </select>
                 </div>
                 <div className="modal-footer">
                   <button
                     type="button"
                     className="btn boton"
+                    disabled={guardando}
                     onClick={() => setMostrarModal(false)}
                   >
                     Cancelar
                   </button>
-                  <button type="submit" className="btn boton boton-primario">
-                    Guardar usuario
+                  <button type="submit" className="btn boton boton-primario" disabled={guardando}>
+                    {guardando ? 'Guardando...' : 'Guardar usuario'}
                   </button>
                 </div>
               </form>
