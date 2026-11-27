@@ -8,7 +8,6 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "start": "vite preview --host 0.0.0.0 --port $PORT",
     "test": "karma start karma.conf.cjs --single-run",
     "test:watch": "karma start karma.conf.cjs --browsers Chrome"
   },
